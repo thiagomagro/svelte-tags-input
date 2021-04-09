@@ -25,6 +25,13 @@ export let id;
 export let allowBlur;
 export let disable;
 export let minChars;
+export let containerClass;
+export let inputClass;
+export let tagClass;
+export let inputMatchsParentClass;
+export let inputMatchsClass;
+	
+	
 
 $: tags = tags || [];
 $: addKeys = addKeys || [13];
@@ -301,10 +308,10 @@ function uniqueID() {
 
 </script>
 
-<div class="svelte-tags-input-layout" class:sti-layout-disable={disable}>
+<div class="{containerClass?containerClass:'svelte-tags-input-layout'}" class:sti-layout-disable={disable}>
     {#if tags.length > 0}
         {#each tags as tag, i}
-            <span class="svelte-tags-input-tag">
+            <span class="{tagClass?tagClass:'svelte-tags-input-tag'}">
                 {#if typeof tag === 'string'}
                     {tag}
                 {:else}
@@ -326,15 +333,15 @@ function uniqueID() {
         on:paste={onPaste}
         on:drop={onDrop}
         on:blur={() => onBlur(tag)}
-        class="svelte-tags-input"
+        class="{inputClass?inputClass:'svelte-tags-input'}"
         placeholder={placeholder}
         disabled={disable}
     >
 </div>
 
 {#if autoComplete && arrelementsmatch.length > 0}
-    <div class="svelte-tags-input-matchs-parent">
-        <ul id="{id}_matchs" class="svelte-tags-input-matchs">
+    <div class="{inputMatchsParentClass?inputMatchsParentClass:'svelte-tags-input-matchs-parent'}">
+        <ul id="{id}_matchs" class="{inputMatchClass?inputMatchClass:'svelte-tags-input-matchs'}">
             {#each arrelementsmatch as element, index}
                 <li
                     tabindex="-1"
